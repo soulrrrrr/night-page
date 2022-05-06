@@ -1,8 +1,14 @@
 var express = require('express');
 var router = express.Router();
 
-const users = new Map();
-var ANSWER = [];
+var users = {}
+var questions = new Array(20).fill({
+  id: 0,
+  title: "None",
+  description: "none",
+  answer: 0,
+  can_answer: false,
+});
 
 var validId = (id) => {
   const NCTU = new RegExp('^0[0-9]{3}[0-2][0-9]{2}$');
@@ -15,43 +21,50 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
 
-router.post('/login', function(req, res, next) {
-  const loginData = {
-    id: req.body.id,
+/* admin post questions */
+router.post('/setQuestion', function(req, res, next) {
+  try {
+    let obj = req.body;
+    questions = obj;
+    res.send('success');
+  } catch (err) {
+    console.log(err);
+    res.send('failed');
   }
-  console.log(req.body.id);
-  if (validId(loginData.id)) {
-    if (users.has(loginData.id)) {
-      res.send("Welcome back");
-    }
-    else {
-      users.set(loginData.id, {
-        ans: [],
-      });
-      res.send("Hi new friend!");
-    }
-  }
-  else {
-    res.send(String(users.size));
-  }
-
-  //res.send('respond with a resource');
 });
 
-router.post('/sendans', function(req, res, next) {
-  const ansData = {
-    id: req.body.id,
-    ans: req.body.ans.split(","),
+/* admin get all users' answers */
+router.get('/allAnswers', function(req, res, next) {
+  try {
+    res.send(users);
+  } catch (err) {
+    res.send('failed');
   }
-  console.log(ansData.ans);
-  if (ansData.ans.length >= 5) {
-    users.set(ansData.id, {ans: ansData.ans});
-    res.send(users.get(ansData.id));
-  }
-  else {
-    res.send("too short ans");
-  }
-
-  //res.send('respond with a resource');
 });
+
+/* client get all questions */
+router.get('/question', function(req, res, next) {
+  try {
+    res.send(questions);
+  } catch (err) {
+    res.send('failed');
+  }
+});
+
+/* client post answers */
+router.post('/answer', function(req, res, next) {
+  try {
+    const ansObj = req.body;
+    users[ansObj.id] = ansObj.ans;
+    console.log(users)
+    res.send('success');
+  } catch (err) {
+    console.log(err);
+    res.send('failed');
+  }
+});
+
+
+
+
 module.exports = router;
