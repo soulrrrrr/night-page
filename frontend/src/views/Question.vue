@@ -85,8 +85,12 @@ export default {
     this.student_id = JSON.parse(localStorage.getItem('user'))['id']
   },
   beforeMount() {
-    var qq = JSON.parse(this.$route.query.number) - 1
-    this.answer_now = JSON.parse(localStorage.getItem('answers'))[qq]
+    var vv = JSON.parse(this.$route.query.number)
+    this.$set(
+      this.question,
+      'answer_now',
+      JSON.parse(localStorage.getItem('answers'))[vv - 1]
+    )
   },
   methods: {
     submit: function () {
