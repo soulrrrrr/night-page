@@ -80,9 +80,13 @@ export default {
     this.OptionB = questions[qq]['Options']['B']
     this.OptionC = questions[qq]['Options']['C']
     this.OptionD = questions[qq]['Options']['D']
-    this.answer_now = JSON.parse(localStorage.getItem('answers'))[qq]
+
     this.student_nickname = JSON.parse(localStorage.getItem('user'))['nickname']
     this.student_id = JSON.parse(localStorage.getItem('user'))['id']
+  },
+  beforeMount() {
+    var qq = JSON.parse(this.$route.query.number) - 1
+    this.answer_now = JSON.parse(localStorage.getItem('answers'))[qq]
   },
   methods: {
     submit: function () {

@@ -211,17 +211,13 @@ export default {
       })
     },
     finalsubmit: function () {
-      axios({
-        method: 'POST',
-        url: '',
-        data: {
-          id: JSON.parse(localStorage.getItem('user'))['student_id'],
-          nickname: JSON.parse(localStorage.getItem('user'))[
-            'student_nickname'
-          ],
-          ans: JSON.parse(localStorage.getItem('answers'))
-        }
-      })
+      var data = {
+        id: JSON.parse(localStorage.getItem('user'))['id'],
+        nickname: JSON.parse(localStorage.getItem('user'))['nickname'],
+        ans: JSON.parse(localStorage.getItem('answers'))
+      }
+
+      axios.post('http://localhost:3000/api/answer', data)
     }
   }
 }

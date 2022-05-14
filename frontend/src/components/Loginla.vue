@@ -67,7 +67,9 @@ export default {
         nickname: this.student_nickname
       }
       localStorage.setItem('user', JSON.stringify(one_user))
-      localStorage.setItem('answers', JSON.stringify(this.ans))
+      if (localStorage.getItem('answers') == null) {
+        localStorage.setItem('answers', JSON.stringify(this.ans))
+      }
 
       this.$router.push({
         path: `/choose`,
