@@ -72,12 +72,12 @@ router.post('/answer', function (req, res, next) {
     const score = getScore(ansObj.ans);
     users[ansObj.id] = {
       nickname: ansObj.nickname,
-      score: score,
+      score: Number(score),
     };
     users = Object.fromEntries(
       Object.entries(users).sort(([,a],[,b]) => b.score-a.score)
     );
-    console.log("sorted: \n", users);
+    console.log("sorted:", users);
     res.send('success');
   } catch (err) {
     console.log(err);
