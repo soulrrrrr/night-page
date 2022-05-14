@@ -11,55 +11,25 @@
           <button
             type="button"
             class="custom btn btn-primary mx-1"
-            v-if="if_answer[0] == 0"
-            v-on:click="choose_to_question_n(1)"
+            v-for="item in one_to_five"
+            v-on:click="choose_to_question_n(item)"
+            :key="item"
           >
-            1
+            {{ item }}
           </button>
-          <button
-            type="button"
-            class="custom btn btn-outline-primary mx-1"
-            v-if="if_answer[0] == 1"
-            v-on:click="choose_to_question_n(1)"
-          >
-            1
-          </button>
-          <button
-            type="button"
-            class="custom btn btn-primary mx-1"
-            v-if="if_answer[1] == 0"
-            v-on:click="choose_to_question_n(2)"
-          >
-            2
-          </button>
-          <button
-            type="button"
-            class="custom btn btn-outline-primary mx-1"
-            v-if="if_answer[1] == 1"
-            v-on:click="choose_to_question_n(2)"
-          >
-            2
-          </button>
+        </div>
+      </div>
+
+      <div class="row mb-3">
+        <div class="col-xs-8">
           <button
             type="button"
             class="custom btn btn-primary mx-1"
-            v-on:click="choose_to_question_n(3)"
+            v-for="item in one_to_five"
+            v-on:click="choose_to_question_n(item + 5)"
+            :key="item"
           >
-            3
-          </button>
-          <button
-            type="button"
-            class="custom btn btn-primary mx-1"
-            v-on:click="choose_to_question_n(4)"
-          >
-            4
-          </button>
-          <button
-            type="button"
-            class="custom btn btn-primary mx-1"
-            v-on:click="choose_to_question_n(5)"
-          >
-            5
+            {{ item + 5 }}
           </button>
         </div>
       </div>
@@ -68,115 +38,24 @@
           <button
             type="button"
             class="custom btn btn-primary mx-1"
-            v-on:click="choose_to_question_n(6)"
+            v-for="item in one_to_five"
+            v-on:click="choose_to_question_n(item + 10)"
+            :key="item"
           >
-            6
-          </button>
-          <button
-            type="button"
-            class="custom btn btn-primary mx-1"
-            v-on:click="choose_to_question_n(7)"
-          >
-            7
-          </button>
-          <button
-            type="button"
-            class="custom btn btn-primary mx-1"
-            v-on:click="choose_to_question_n(8)"
-          >
-            8
-          </button>
-          <button
-            type="button"
-            class="custom btn btn-primary mx-1"
-            v-on:click="choose_to_question_n(9)"
-          >
-            9
-          </button>
-          <button
-            type="button"
-            class="custom btn btn-primary mx-1"
-            v-on:click="choose_to_question_n(10)"
-          >
-            10
+            {{ item + 10 }}
           </button>
         </div>
       </div>
       <div class="row mb-3">
-        <div class="col-xs-4">
+        <div class="col-xs-8">
           <button
             type="button"
             class="custom btn btn-primary mx-1"
-            v-on:click="choose_to_question_n(11)"
+            v-for="item in one_to_five"
+            v-on:click="choose_to_question_n(item + 15)"
+            :key="item"
           >
-            11
-          </button>
-          <button
-            type="button"
-            class="custom btn btn-primary mx-1"
-            v-on:click="choose_to_question_n(12)"
-          >
-            12
-          </button>
-          <button
-            type="button"
-            class="custom btn btn-primary mx-1"
-            v-on:click="choose_to_question_n(13)"
-          >
-            13
-          </button>
-          <button
-            type="button"
-            class="custom btn btn-primary mx-1"
-            v-on:click="choose_to_question_n(14)"
-          >
-            14
-          </button>
-          <button
-            type="button"
-            class="custom btn btn-primary mx-1"
-            v-on:click="choose_to_question_n(15)"
-          >
-            15
-          </button>
-        </div>
-      </div>
-      <div class="row mb-3">
-        <div class="col-xs-4">
-          <button
-            type="button"
-            class="custom btn btn-primary mx-1"
-            v-on:click="choose_to_question_n(16)"
-          >
-            16
-          </button>
-          <button
-            type="button"
-            class="custom btn btn-primary mx-1"
-            v-on:click="choose_to_question_n(17)"
-          >
-            17
-          </button>
-          <button
-            type="button"
-            class="custom btn btn-primary mx-1"
-            v-on:click="choose_to_question_n(18)"
-          >
-            18
-          </button>
-          <button
-            type="button"
-            class="custom btn btn-primary mx-1"
-            v-on:click="choose_to_question_n(19)"
-          >
-            19
-          </button>
-          <button
-            type="button"
-            class="custom btn btn-primary mx-1"
-            v-on:click="choose_to_question_n(20)"
-          >
-            20
+            {{ item + 15 }}
           </button>
         </div>
       </div>
@@ -184,6 +63,14 @@
     <button type="button" class="btn btn-primary" v-on:click="finalsubmit()">
       送出
     </button>
+    <h4 class="mt-4">
+      你尚未作答的題目：
+      <div v-for="(question, index) in ans" :key="question">
+        <p v-if="question == ''">
+          {{ index + 1 }}
+        </p>
+      </div>
+    </h4>
   </div>
 </template>
 
@@ -195,10 +82,10 @@ export default {
   data() {
     return {
       Nickname: '',
-      if_answer: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+      one_to_five: [1, 2, 3, 4, 5],
+      ans: JSON.parse(localStorage.getItem('answers'))
     }
   },
-
   methods: {
     choose_to_question_n: function (number) {
       console.log(JSON.parse(localStorage.getItem('user')))

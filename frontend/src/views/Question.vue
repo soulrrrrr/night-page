@@ -35,15 +35,12 @@
       >
         D : {{ OptionD }}
       </button>
-      <button type="button" class="btn btn-primary" v-on:click="submit">
-        確認答案
-      </button>
 
       <h4 class="mt-3"><br />你目前這題的答案為 {{ question.answer_now }}</h4>
     </div>
     <button
       type="button"
-      class="btn btn-outline-dark mt-3"
+      class="btn btn-outline-dark mt-2"
       v-on:click="back_to_choose"
     >
       回到上一頁
@@ -93,19 +90,16 @@ export default {
     )
   },
   methods: {
-    submit: function () {
-      var vv = JSON.parse(this.$route.query.number)
-      this.$set(
-        this.question,
-        'answer_now',
-        JSON.parse(localStorage.getItem('answers'))[vv - 1]
-      )
-    },
     change_ans: function (ans) {
       var qq = JSON.parse(this.$route.query.number)
       var answer_all = JSON.parse(localStorage.getItem('answers'))
       answer_all[qq - 1] = ans
       localStorage.setItem('answers', JSON.stringify(answer_all))
+      this.$set(
+        this.question,
+        'answer_now',
+        JSON.parse(localStorage.getItem('answers'))[qq - 1]
+      )
     },
     back_to_choose: function () {
       const one_user = {
