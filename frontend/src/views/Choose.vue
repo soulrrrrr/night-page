@@ -181,50 +181,45 @@
         </div>
       </div>
     </div>
-    <button type="button" class="btn btn-primary" v-on:click="submit_to_server">
+    <button type="button" class="btn btn-primary" v-on:click="finalsubmit()">
       送出
     </button>
   </div>
 </template>
 
 <script>
+import axios from 'axios'
 export default {
   name: 'Choose',
 
   data() {
     return {
       Nickname: '',
-      if_answer: [0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-      answers: [
-        '',
-        '',
-        '',
-        '',
-        '',
-        '',
-        '',
-        '',
-        '',
-        '',
-        '',
-        '',
-        '',
-        '',
-        '',
-        '',
-        '',
-        '',
-        '',
-        ''
-      ]
+      if_answer: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
     }
   },
+
   methods: {
     choose_to_question_n: function (number) {
+      console.log(JSON.parse(localStorage.getItem('user')))
+      console.log(JSON.parse(localStorage.getItem('answers')))
       this.$router.push({
         path: `/question/`,
         query: {
           number: JSON.stringify(number)
+        }
+      })
+    },
+    finalsubmit: function () {
+      axios({
+        method: 'POST',
+        url: '',
+        data: {
+          id: JSON.parse(localStorage.getItem('user'))['student_id'],
+          nickname: JSON.parse(localStorage.getItem('user'))[
+            'student_nickname'
+          ],
+          ans: JSON.parse(localStorage.getItem('answers'))
         }
       })
     }

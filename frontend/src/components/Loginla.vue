@@ -30,7 +30,29 @@ export default {
       student: {
         student_id: '',
         student_nickname: ''
-      }
+      },
+      ans: [
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        ''
+      ]
     }
   },
   beforeCreate() {
@@ -40,9 +62,13 @@ export default {
 
   methods: {
     login_to_choose: function () {
-      const user = { id: this.student_id, nickname: this.student_nickname }
-      console.log(user)
-      localStorage.setItem('user', JSON.stringify(user))
+      const one_user = {
+        id: this.student_id,
+        nickname: this.student_nickname
+      }
+      localStorage.setItem('user', JSON.stringify(one_user))
+      localStorage.setItem('answers', JSON.stringify(this.ans))
+
       this.$router.push({
         path: `/choose`,
         query: {
