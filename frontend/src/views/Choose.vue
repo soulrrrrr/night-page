@@ -159,7 +159,8 @@ export default {
         nickname: JSON.parse(localStorage.getItem('user'))['nickname'],
         ans: JSON.parse(localStorage.getItem('answers'))
       }
-      axios.post('http://localhost:3000/api/answer', data)
+      axios.post('/api/answer', data)
+      // http://localhost:3000/api/answer
     },
     back_to_login: function () {
       this.$router.push({
