@@ -88,8 +88,6 @@ export default {
   },
   methods: {
     choose_to_question_n: function (number) {
-      console.log(JSON.parse(localStorage.getItem('user')))
-      console.log(JSON.parse(localStorage.getItem('answers')))
       this.$router.push({
         path: `/question/`,
         query: {
