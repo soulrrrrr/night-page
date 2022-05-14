@@ -66,9 +66,8 @@ router.get('/userAnswers', function (req, res, next) {
 
 /* client post answers */
 router.post('/answer', function (req, res, next) {
-  console.log("hi");
+  console.log("answer in!");
   try {
-    console.log(req.body)
     const ansObj = req.body;
     const score = getScore(ansObj.ans);
     users[ansObj.id] = {
@@ -78,7 +77,7 @@ router.post('/answer', function (req, res, next) {
     users = Object.fromEntries(
       Object.entries(users).sort(([,a],[,b]) => b.score-a.score)
     );
-    console.log(users);
+    console.log("sorted: \n", users);
     res.send('success');
   } catch (err) {
     console.log(err);
