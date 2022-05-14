@@ -3,6 +3,15 @@
 
 
 ### Project host
+
+go to /frontend:
+
+```
+npm run build
+```
+
+then execute the current function to build.
+
 ```
 sudo docker-compose up --build
 ```
