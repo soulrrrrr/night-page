@@ -5,72 +5,130 @@
       hi {{ JSON.parse(this.$route.query.student_nickname) }} 點擊題號
       <br />趕快開始答題吧！ <br /><br />
     </h4>
-    <div>
-      <div class="row mb-3">
-        <div class="col-xs-8">
-          <button
-            type="button"
-            class="custom btn btn-primary mx-1"
-            v-for="item in one_to_five"
-            v-on:click="choose_to_question_n(item)"
-            :key="item"
-          >
-            {{ item }}
-          </button>
-        </div>
-      </div>
 
-      <div class="row mb-3">
-        <div class="col-xs-8">
-          <button
-            type="button"
-            class="custom btn btn-primary mx-1"
-            v-for="item in one_to_five"
-            v-on:click="choose_to_question_n(item + 5)"
-            :key="item"
-          >
-            {{ item + 5 }}
-          </button>
-        </div>
-      </div>
-      <div class="row mb-3">
-        <div class="col-xs-8">
-          <button
-            type="button"
-            class="custom btn btn-primary mx-1"
-            v-for="item in one_to_five"
-            v-on:click="choose_to_question_n(item + 10)"
-            :key="item"
-          >
-            {{ item + 10 }}
-          </button>
-        </div>
-      </div>
-      <div class="row mb-3">
-        <div class="col-xs-8">
-          <button
-            type="button"
-            class="custom btn btn-primary mx-1"
-            v-for="item in one_to_five"
-            v-on:click="choose_to_question_n(item + 15)"
-            :key="item"
-          >
-            {{ item + 15 }}
-          </button>
+    <el-row v-for="item in one_to_five" :key="item">
+      <button
+        type="button"
+        class="custom btn btn-primary mx-1 mb-3"
+        v-on:click="choose_to_question_n(item)"
+        v-if="ans[item - 1] == ''"
+      >
+        {{ item }}
+      </button>
+      <button
+        type="button"
+        class="custom btn btn-outline-primary mx-1 mb-3"
+        v-on:click="choose_to_question_n(item)"
+        v-else
+      >
+        {{ item }}
+      </button>
+    </el-row>
+    <br />
+    <el-row v-for="item in one_to_five" :key="item">
+      <button
+        type="button"
+        class="custom btn btn-primary mx-1 mb-3"
+        v-on:click="choose_to_question_n(item + 5)"
+        v-if="ans[item + 4] == ''"
+      >
+        {{ item + 5 }}
+      </button>
+      <button
+        type="button"
+        class="custom btn btn-outline-primary mx-1 mb-3"
+        v-on:click="choose_to_question_n(item + 5)"
+        v-if="ans[item + 4] != ''"
+      >
+        {{ item + 5 }}
+      </button>
+    </el-row>
+    <br />
+
+    <el-row v-for="item in one_to_five" :key="item">
+      <button
+        type="button"
+        class="custom btn btn-primary mx-1 mb-3"
+        v-on:click="choose_to_question_n(item + 10)"
+        v-if="ans[item + 9] == ''"
+      >
+        {{ item + 10 }}
+      </button>
+      <button
+        type="button"
+        class="custom btn btn-outline-primary mx-1 mb-3"
+        v-on:click="choose_to_question_n(item + 10)"
+        v-if="ans[item + 9] != ''"
+      >
+        {{ item + 10 }}
+      </button>
+    </el-row>
+    <br />
+    <el-row v-for="item in one_to_five" :key="item">
+      <button
+        type="button"
+        class="custom btn btn-outline-primary mx-1 mb-3"
+        v-on:click="choose_to_question_n(item + 15)"
+        v-if="ans[item + 14] != ''"
+      >
+        {{ item + 15 }}
+      </button>
+      <button
+        type="button"
+        class="custom btn btn-primary mx-1 mb-3"
+        v-on:click="choose_to_question_n(item + 15)"
+        v-if="ans[item + 14] == ''"
+      >
+        {{ item + 15 }}
+      </button>
+    </el-row>
+    <br />
+
+    <button
+      type="button"
+      class="btn btn-primary"
+      data-bs-toggle="modal"
+      data-bs-target="#exampleModal"
+    >
+      送出
+    </button>
+    <!-- Modal -->
+    <div
+      class="modal fade"
+      id="exampleModal"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">送出答案！</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            沒有填完也沒關係 答案可以一直被更改～ <br />你目前的答案已經送出！
+            想要再改也ok <br />
+            請等候主持人宣布最後的結果喔～
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+              v-on:click="back_to_login()"
+            >
+              Close
+            </button>
+          </div>
         </div>
       </div>
     </div>
-    <button type="button" class="btn btn-primary" v-on:click="finalsubmit()">
-      送出
-    </button>
-    <h4 class="mt-4">
-      你尚未作答的題目：
-      <div v-for="(question, index) in ans" :key="question">
-        <p v-if="question == ''">
-          {{ index + 1 }}
-        </p>
-      </div>
-    </h4>
   </div>
 </template>
 
@@ -101,8 +159,12 @@ export default {
         nickname: JSON.parse(localStorage.getItem('user'))['nickname'],
         ans: JSON.parse(localStorage.getItem('answers'))
       }
-
       axios.post('http://localhost:3000/api/answer', data)
+    },
+    back_to_login: function () {
+      this.$router.push({
+        path: `/login/`
+      })
     }
   }
 }

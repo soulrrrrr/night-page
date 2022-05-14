@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="container">
-      <p class="mx-4" align="left">題目：{{ Text }}</p>
+      <p class="mx-4" align="left">{{ Text }}</p>
     </div>
 
     <div class="row mt-5 mx-4 middle">

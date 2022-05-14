@@ -4,6 +4,7 @@ import './registerServiceWorker'
 import router from './router'
 import store from './store'
 import 'bootstrap/dist/css/bootstrap.min.css'
+import 'bootstrap/dist/js/bootstrap.bundle.min.js'
 // import liff from '@line/liff';
 Vue.config.productionTip = false
 
@@ -11,7 +12,7 @@ Vue.config.productionTip = false
 //   console.log('LIFF init');
 //   console.log(liff.getProfile());
 //   // 這邊開始寫使用其他功能
-  
+
 // }).catch(function(error) {
 //   console.log(error);
 // });
