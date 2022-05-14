@@ -89,6 +89,7 @@
       class="btn btn-primary"
       data-bs-toggle="modal"
       data-bs-target="#exampleModal"
+      v-on:click="finalsubmit()"
     >
       送出
     </button>
