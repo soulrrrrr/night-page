@@ -42,12 +42,13 @@ router.get('/allAnswers', function(req, res, next) {
   }
 });
 
-/* client get all questions */
-router.get('/question', function(req, res, next) {
+/* client get user's answer */
+router.get('/userAnswers', function(req, res, next) {
   try {
-    res.send(questions);
+    const id = req.body.id;
+    res.send(users[id]);
   } catch (err) {
-    res.send('failed');
+    res.send({});
   }
 });
 
@@ -55,7 +56,7 @@ router.get('/question', function(req, res, next) {
 router.post('/answer', function(req, res, next) {
   try {
     const ansObj = req.body;
-    users[ansObj.id] = ansObj.ans;
+    users[ansObj.id] = ansObj;
     console.log(users)
     res.send('success');
   } catch (err) {
