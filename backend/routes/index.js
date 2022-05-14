@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 
 var users = {}
+var answers = ["A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A"]
 var questions = new Array(20).fill({
   id: 0,
   title: "None",
@@ -16,10 +17,21 @@ var validId = (id) => {
   return (NCTU.test(id) || NYCU.test(id));
 }
 
-/* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
-});
+var compare = (a, b) => {
+  if (a.score < b.score)
+    return -1;
+  return 1;
+}
+
+var getScore = (ans) => {
+  let score = 0;
+  for (let i = 0; i < ans.length; i++) {
+    if (ans[i] == answers[i])
+      score++;
+  }
+  return score;
+}
+
 
 /* admin post questions */
 router.post('/setQuestion', function(req, res, next) {
@@ -54,10 +66,15 @@ router.get('/userAnswers', function(req, res, next) {
 
 /* client post answers */
 router.post('/answer', function(req, res, next) {
+  console.log("hi");
   try {
     const ansObj = req.body;
-    users[ansObj.id] = ansObj;
-    console.log(users)
+    const score = getScore(ansObj.ans);
+    users[ansObj.id] = {
+      nickname: ansObj.nickname,
+      score: score,
+    };
+    console.log(users);
     res.send('success');
   } catch (err) {
     console.log(err);
@@ -65,7 +82,17 @@ router.post('/answer', function(req, res, next) {
   }
 });
 
-
-
+/* admin get user's score */
+router.get('/score', function(req, res, next) {
+  try {
+    const sorted = Object.fromEntries(
+      Object.entries(users).sort(([,a],[,b]) => b.score-a.score)
+    );
+    console.log("sorted: ", sorted);
+    res.json(sorted);
+  } catch (err) {
+    res.send({});
+  }
+});
 
 module.exports = router;
