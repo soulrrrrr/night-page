@@ -19,7 +19,8 @@ services:
   backend:
     build: ./backend
     environment:
-      PORT: 8000
+      PORT: 3000
 
 volumes:
-    app-volume:
+    app-volume: 
+      driver: local
