@@ -1,9 +1,9 @@
 <template>
   <div id="app">
     <div id="nav">
-      <router-link to="/">Home</router-link> |
       <router-link to="/choose"> 選題頁面</router-link> |
-      <router-link to="/login">登入頁面</router-link>
+      <router-link to="/login">登入頁面</router-link>|
+      <router-link to="/question">題目頁面</router-link>
     </div>
     <router-view />
   </div>

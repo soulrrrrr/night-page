@@ -2,32 +2,54 @@
   <form class="formla">
     <h4>
       交大資工之夜 資本主藝<br />
-      請輸入學號 開始遊戲!
+      請輸入暱稱 & 學號 開始遊戲!
     </h4>
     <div class="mb-2 mx-5">
-      <input class="form-control" id="student_id" />
+      <label class="form-label"
+        ><br />
+        學號</label
+      >
+      <input class="form-control" v-model="student_id" />
     </div>
-
-    <!-- Button trigger modal -->
-    <button type="button" class="btn btn-primary">登入</button>
+    <div class="mb-2 mx-5">
+      <label class="form-label">暱稱</label>
+      <input class="form-control" v-model="student_nickname" />
+      <br />
+    </div>
+    <button type="button" class="btn btn-primary" v-on:click="login_to_choose">
+      登入
+    </button>
   </form>
 </template>
 
 <script>
-// import liff from '@line/liff';
-// import { onMounted } from "vue";
-
 export default {
   name: 'Loginla',
-  props: {
-    profile: Object
-  },
   data() {
     return {
-      student_id: {
-        type: Number,
-        default: 2
+      student: {
+        student_id: '',
+        student_nickname: ''
       }
+    }
+  },
+  beforeCreate() {
+    this.student_nickname = JSON.parse(localStorage.getItem('user'))['nickname']
+    this.student_id = JSON.parse(localStorage.getItem('user'))['id']
+  },
+
+  methods: {
+    login_to_choose: function () {
+      const user = { id: this.student_id, nickname: this.student_nickname }
+      console.log(user)
+      localStorage.setItem('user', JSON.stringify(user))
+      this.$router.push({
+        path: `/choose`,
+        query: {
+          student_nickname: JSON.stringify(this.student_nickname),
+          student_id: JSON.stringify(this.student_id)
+        }
+      })
     }
   }
 }
