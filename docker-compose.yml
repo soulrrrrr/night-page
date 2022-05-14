@@ -1,0 +1,25 @@
+version: '3'
+services:
+  nginx:
+    image: nginx:mainline-alpine
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+      - app-volume:/app
+    ports:
+      - 80:80
+    depends_on:
+      - frontend
+      - backend
+
+  frontend:
+    build: ./frontend
+    volumes:
+      - app-volume:/app
+
+  backend:
+    build: ./backend
+    environment:
+      PORT: 8000
+
+volumes:
+    app-volume:
