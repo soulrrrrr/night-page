@@ -74,6 +74,9 @@ router.post('/answer', function(req, res, next) {
       nickname: ansObj.nickname,
       score: score,
     };
+    users = Object.fromEntries(
+      Object.entries(users).sort(([,a],[,b]) => b.score-a.score)
+    );
     console.log(users);
     res.send('success');
   } catch (err) {
