@@ -2,7 +2,7 @@
   <div>
     <img alt="Vue logo" src="../assets/night_logo.jpeg" class="mb-3" />
     <h4>
-      hi {{ JSON.parse(this.$route.query.student_nickname) }} 點擊題號
+      Hi {{ JSON.parse(this.$route.query.student_nickname) }} 點擊題號
       <br />趕快開始答題吧！ <br /><br />
     </h4>
 

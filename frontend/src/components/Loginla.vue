@@ -7,7 +7,7 @@
     <div class="mb-2 mx-5">
       <label class="form-label"
         ><br />
-        學號</label
+        學號 (若無學號就輸入123)</label
       >
       <input class="form-control" v-model="student_id" />
     </div>
