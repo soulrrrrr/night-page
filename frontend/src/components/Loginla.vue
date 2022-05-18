@@ -12,7 +12,7 @@
       <input class="form-control" v-model="student_id" />
     </div>
     <div class="mb-2 mx-5">
-      <label class="form-label">暱稱</label>
+      <label class="form-label">本名</label>
       <input class="form-control" v-model="student_nickname" />
       <br />
     </div>

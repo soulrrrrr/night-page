@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 
 var users = {}
-var answers = ["A", "A", "A", "A", "A", "A", "A", "A", "A", "A", "A", "A", "A", "A", "A", "A", "A", "A", "A", "A"]
+var answers = ["C", "B", "A", "D", "A", "C", "D", "D", "B", "A", "A", "C", "B", "C", "B", "A", "B", "D", "D", "C"]
 var questions = new Array(20).fill({
   id: 0,
   title: "None",
@@ -33,36 +33,36 @@ var getScore = (ans) => {
 }
 
 
-/* admin post questions */
-router.post('/setQuestion', function (req, res, next) {
-  try {
-    let obj = req.body;
-    questions = obj;
-    res.send('success');
-  } catch (err) {
-    console.log(err);
-    res.send('failed');
-  }
-});
+// /* admin post questions */
+// router.post('/setQuestion', function (req, res, next) {
+//   try {
+//     let obj = req.body;
+//     questions = obj;
+//     res.send('success');
+//   } catch (err) {
+//     console.log(err);
+//     res.send('failed');
+//   }
+// });
 
-/* admin get all users' answers */
-router.get('/allAnswers', function (req, res, next) {
-  try {
-    res.send(users);
-  } catch (err) {
-    res.send('failed');
-  }
-});
+// /* admin get all users' answers */
+// router.get('/allAnswers', function (req, res, next) {
+//   try {
+//     res.send(users);
+//   } catch (err) {
+//     res.send('failed');
+//   }
+// });
 
-/* client get user's answer */
-router.get('/userAnswers', function (req, res, next) {
-  try {
-    const id = req.body.id;
-    res.send(users[id]);
-  } catch (err) {
-    res.send({});
-  }
-});
+// /* client get user's answer */
+// router.get('/userAnswers', function (req, res, next) {
+//   try {
+//     const id = req.body.id;
+//     res.send(users[id]);
+//   } catch (err) {
+//     res.send({});
+//   }
+// });
 
 /* client post answers */
 router.post('/answer', function (req, res, next) {
